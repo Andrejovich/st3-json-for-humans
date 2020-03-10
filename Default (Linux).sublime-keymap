@@ -1,0 +1,36 @@
+[
+    // Auto-quote preceding word, which presumably is meant to be a JSON key.
+    {
+        "keys":     [":"],
+        "command":  "run_macro_file",
+        "args":     {"file": "res://Packages/JSON For Humans/Quote Key.sublime-macro"},
+        "context": [
+            {"key": "selection_empty", "operand": true, "match_all": true},
+            {"key": "selector", "operator": "equal", "operand": "meta.mapping.json - string.quoted", "match_all": true},
+            {"key": "preceding_text", "operator": "regex_contains", "operand": "(^|[{,])\\s*[^{[\"\\s]+$"}
+        ],
+    },
+
+    // Auto-quote selection.
+    {
+        "keys":     [":"],
+        "command":  "insert_snippet",
+        "args":     {"contents": "\"$SELECTION\": $0"},
+        "context": [
+            {"key": "selection_empty", "operand": false, "match_all": true},
+            {"key": "selector", "operator": "equal", "operand": "meta.mapping.json - string.quoted", "match_all": true},
+        ],
+    },
+
+    // Auto-insert comma upon hitting enter while within [...] or {...}.
+    {
+        "keys":     ["enter"],
+        "command":  "insert",
+        "args":     {"characters": ",\n"},
+        "context": [
+            {"key": "selection_empty", "operand": true, "match_all": true},
+            {"key": "selector", "operator": "equal", "operand": "(meta.mapping.json, meta.sequence.json) - comment", "match_all": true},
+            {"key": "preceding_text", "operator": "regex_contains", "operand": "(?<=[^[{:,\\s])\\s*$"},
+        ]
+    }
+]

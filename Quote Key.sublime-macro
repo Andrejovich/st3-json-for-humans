@@ -1,0 +1,6 @@
+[
+    {"command": "move", "args": {"by": "words", "forward": false}},
+    {"command": "insert", "args": {"characters": "\""}},
+    {"command": "move", "args": {"by": "word_ends", "forward": true}},
+    {"command": "insert", "args": {"characters": "\": "}}
+]
